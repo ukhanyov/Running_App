@@ -123,6 +123,7 @@ runningapp-android-application-compose = { id = "runningapp.android.application.
 runningapp-android-library = { id = "runningapp.android.library", version = "unspecified" }
 runningapp-android-library-compose = { id = "runningapp.android.library.compose", version = "unspecified" }
 runningapp-android-feature-ui = { id = "runningapp.android.feature.ui", version = "unspecified" }
+runningapp-android-room = { id = "runningapp.android.room", version = "unspecified" }
 
 [bundles]
 compose = [
