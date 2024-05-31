@@ -1,9 +1,7 @@
-import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.ukhanyov.convention.ExtensionType
 import com.ukhanyov.convention.configureBuildTypes
 import com.ukhanyov.convention.configureKotlinAndroid
-import com.ukhanyov.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

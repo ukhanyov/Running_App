@@ -121,3 +121,4 @@ mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.
 runningapp-android-application = { id = "runningapp.android.application", version = "unspecified" }
 runningapp-android-application-compose = { id = "runningapp.android.application.compose", version = "unspecified" }
 runningapp-android-library = { id = "runningapp.android.library", version = "unspecified" }
+runningapp-android-library-compose = { id = "runningapp.android.library.compose", version = "unspecified" }
