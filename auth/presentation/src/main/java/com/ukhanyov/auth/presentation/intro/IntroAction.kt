@@ -1,6 +1,6 @@
 package com.ukhanyov.auth.presentation.intro
 
 sealed interface IntroAction {
-    data object OnSignInClicked: IntroAction
-    data object OnSignUpClicked: IntroAction
+    data object OnSignInClick : IntroAction
+    data object OnSignUpClick : IntroAction
 }
