@@ -3,14 +3,7 @@
 package com.ukhanyov.auth.presentation.register
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
@@ -31,14 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ukhanyov.auth.domain.UserDataValidator
 import com.ukhanyov.auth.presentation.R
-import com.ukhanyov.core.presentation.designsystem.CheckIcon
-import com.ukhanyov.core.presentation.designsystem.CrossIcon
-import com.ukhanyov.core.presentation.designsystem.EmailIcon
-import com.ukhanyov.core.presentation.designsystem.Poppins
-import com.ukhanyov.core.presentation.designsystem.RunningAppDarkRed
-import com.ukhanyov.core.presentation.designsystem.RunningAppGray
-import com.ukhanyov.core.presentation.designsystem.RunningAppGreen
-import com.ukhanyov.core.presentation.designsystem.RunningAppTheme
+import com.ukhanyov.core.presentation.designsystem.*
 import com.ukhanyov.core.presentation.designsystem.components.GradientBackground
 import com.ukhanyov.core.presentation.designsystem.components.RunningAppActionButton
 import com.ukhanyov.core.presentation.designsystem.components.RunningAppPasswordTextField
@@ -46,7 +32,9 @@ import com.ukhanyov.core.presentation.designsystem.components.RunningAppTextFiel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RegisterScreenRot(
+fun RegisterScreenRoot(
+    onSignInClick: () -> Unit,
+    onSuccessfulRegistration: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel()
 ) {
     RegisterScreenRotScreen(
