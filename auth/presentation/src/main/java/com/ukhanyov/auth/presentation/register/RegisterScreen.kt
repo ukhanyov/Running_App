@@ -66,14 +66,14 @@ fun RegisterScreenRoot(
         }
     }
 
-    RegisterScreenRotScreen(
+    RegisterScreen(
         state = viewModel.state,
         onAction = viewModel::onAction
     )
 }
 
 @Composable
-private fun RegisterScreenRotScreen(
+private fun RegisterScreen(
     state: RegisterState,
     onAction: (RegisterAction) -> Unit
 ) {
@@ -94,7 +94,7 @@ private fun RegisterScreenRotScreen(
                 withStyle(
                     style = SpanStyle(
                         fontFamily = Poppins,
-                        color = RunningAppGray,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 ) {
                     append(stringResource(id = R.string.already_have_an_account) + " ")
@@ -104,9 +104,9 @@ private fun RegisterScreenRotScreen(
                     )
                     withStyle(
                         style = SpanStyle(
-                            fontFamily = Poppins,
-                            color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontFamily = Poppins
                         )
                     ) {
                         append(stringResource(id = R.string.login))
@@ -119,7 +119,7 @@ private fun RegisterScreenRotScreen(
                     annotatedString.getStringAnnotations(
                         tag = "clickable_text",
                         start = offset,
-                        end = offset,
+                        end = offset
                     ).firstOrNull()?.let {
                         onAction(RegisterAction.OnLoginClick)
                     }
@@ -221,9 +221,9 @@ fun PasswordRequirement(
 
 @Preview
 @Composable
-private fun RegisterScreenRotScreenPreview() {
+private fun RegisterScreenPreview() {
     RunningAppTheme {
-        RegisterScreenRotScreen(
+        RegisterScreen(
             state = RegisterState(),
             onAction = {}
         )
