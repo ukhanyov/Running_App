@@ -15,15 +15,24 @@ import com.ukhanyov.core.presentation.designsystem.components.RunningAppScaffold
 import com.ukhanyov.core.presentation.designsystem.components.RunningAppToolbar
 import com.ukhanyov.core.presentation.designsystem.components.util.DropDownItem
 import com.ukhanyov.run.presentation.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RunOverviewScreenRoot(
-//    viewModel: RunOverviewViewModel = koinViewModel()
+    onStartRunClick: () -> Unit,
+    viewModel: RunOverviewViewModel = koinViewModel()
 ) {
     RunOverviewScreen(
 //        state = viewModel.state,
 //        onAction = viewModel::onAction
-        onAction = {}
+        onAction = { action ->
+            when (action) {
+                RunOverviewAction.OnStartClick -> onStartRunClick()
+                else -> {
+                }
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
