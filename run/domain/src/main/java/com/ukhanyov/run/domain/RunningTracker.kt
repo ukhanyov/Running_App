@@ -92,7 +92,7 @@ class RunningTracker(
             .launchIn(applicationScope)
     }
 
-    fun isTracking(isTracking: Boolean) {
+    fun setIsTracking(isTracking: Boolean) {
         this.isTracking.value = isTracking
     }
 
