@@ -59,7 +59,7 @@ class RunningTracker(
             .zip(_elapsedTime) { location, elapsedTime ->
                 LocationTimestamp(
                     location = location,
-                    durationTimeStamp = elapsedTime,
+                    durationTimestamp = elapsedTime,
                 )
             }
             .onEach { location ->
@@ -73,7 +73,7 @@ class RunningTracker(
                     locations = newLocationsList
                 )
                 val distanceKm = distanceMeters / 1000.0
-                val currentDuration = location.durationTimeStamp
+                val currentDuration = location.durationTimestamp
 
                 val avgSecondsPerKm = if (distanceKm == 0.0) {
                     0
