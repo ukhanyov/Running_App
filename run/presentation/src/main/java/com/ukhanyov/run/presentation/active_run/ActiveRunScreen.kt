@@ -4,6 +4,7 @@ package com.ukhanyov.run.presentation.active_run
 
 import android.Manifest
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -26,7 +27,12 @@ import androidx.compose.ui.unit.dp
 import com.ukhanyov.core.presentation.designsystem.RunningAppTheme
 import com.ukhanyov.core.presentation.designsystem.StartIcon
 import com.ukhanyov.core.presentation.designsystem.StopIcon
-import com.ukhanyov.core.presentation.designsystem.components.*
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppActionButton
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppDialog
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppFloatingActionButton
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppOutlinedActionButton
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppScaffold
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppToolbar
 import com.ukhanyov.run.presentation.R
 import com.ukhanyov.run.presentation.active_run.components.RunDataCard
 import com.ukhanyov.run.presentation.active_run.maps.TrackerMap
@@ -36,6 +42,7 @@ import com.ukhanyov.run.presentation.util.hasNotificationPermission
 import com.ukhanyov.run.presentation.util.shouldShowLocationPermissionRationale
 import com.ukhanyov.run.presentation.util.shouldShowNotificationPermissionRationale
 import org.koin.androidx.compose.koinViewModel
+import java.io.ByteArrayOutputStream
 
 @Composable
 fun ActiveRunScreenRoot(
@@ -61,11 +68,9 @@ private fun ActiveRunScreen(
     ) { perms ->
         val hasCourseLocationPermission = perms[Manifest.permission.ACCESS_COARSE_LOCATION] == true
         val hasFineLocationPermission = perms[Manifest.permission.ACCESS_FINE_LOCATION] == true
-        val hasPostNotificationPermission = if (Build.VERSION.SDK_INT >= 33) {
+        val hasNotificationPermission = if (Build.VERSION.SDK_INT >= 33) {
             perms[Manifest.permission.POST_NOTIFICATIONS] == true
-        } else {
-            true
-        }
+        } else true
 
         val activity = context as ComponentActivity
         val showLocationRationale = activity.shouldShowLocationPermissionRationale()
@@ -79,7 +84,7 @@ private fun ActiveRunScreen(
         )
         onAction(
             ActiveRunAction.SubmitNotificationPermissionInfo(
-                acceptedNotificationPermission = hasPostNotificationPermission,
+                acceptedNotificationPermission = hasNotificationPermission,
                 showNotificationPermissionRationale = showNotificationRationale
             )
         )
@@ -115,7 +120,7 @@ private fun ActiveRunScreen(
     }
 
     LaunchedEffect(key1 = state.shouldTrack) {
-        if (context.hasLocationPermission() && state.shouldTrack && ActiveRunService.isServiceActive.not()) {
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
             onServiceToggle(true)
         }
     }
@@ -131,7 +136,6 @@ private fun ActiveRunScreen(
                 },
             )
         },
-
         floatingActionButton = {
             RunningAppFloatingActionButton(
                 icon = if (state.shouldTrack) {
@@ -160,7 +164,17 @@ private fun ActiveRunScreen(
                 isRunFinished = state.isRunFinished,
                 currentLocation = state.currentLocation,
                 locations = state.runData.locations,
-                onSnapshot = {},
+                onSnapshot = { bmp ->
+                    val stream = ByteArrayOutputStream()
+                    stream.use {
+                        bmp.compress(
+                            Bitmap.CompressFormat.JPEG,
+                            80,
+                            it
+                        )
+                    }
+                    onAction(ActiveRunAction.OnRunProcessed(stream.toByteArray()))
+                },
                 modifier = Modifier
                     .fillMaxSize()
             )
@@ -189,7 +203,7 @@ private fun ActiveRunScreen(
                     onClick = {
                         onAction(ActiveRunAction.OnResumeRunClick)
                     },
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f)
                 )
             },
             secondaryButton = {
@@ -199,7 +213,7 @@ private fun ActiveRunScreen(
                     onClick = {
                         onAction(ActiveRunAction.OnFinishRunClick)
                     },
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f)
                 )
             }
         )
@@ -229,7 +243,7 @@ private fun ActiveRunScreen(
                     onClick = {
                         onAction(ActiveRunAction.DismissRationaleDialog)
                         permissionLauncher.requestRunningAppPermissions(context)
-                    }
+                    },
                 )
             }
         )
