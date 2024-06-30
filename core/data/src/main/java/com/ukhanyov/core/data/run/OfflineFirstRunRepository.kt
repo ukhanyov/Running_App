@@ -1,5 +1,6 @@
 package com.ukhanyov.core.data.run
 
+import com.ukhanyov.core.data.networking.get
 import com.ukhanyov.core.database.dao.RunPendingSyncDao
 import com.ukhanyov.core.database.mappers.toRun
 import com.ukhanyov.core.domain.SessionStorage
@@ -8,6 +9,10 @@ import com.ukhanyov.core.domain.util.DataError
 import com.ukhanyov.core.domain.util.EmptyResult
 import com.ukhanyov.core.domain.util.Result
 import com.ukhanyov.core.domain.util.asEmptyDataResult
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerAuthProvider
+import io.ktor.client.plugins.plugin
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 
@@ -18,6 +23,7 @@ class OfflineFirstRunRepository(
     private val runPendingSyncDao: RunPendingSyncDao,
     private val sessionStorage: SessionStorage,
     private val syncRunScheduler: SyncRunScheduler,
+    private val client: HttpClient,
 ) : RunRepository {
 
     override fun getRuns(): Flow<List<Run>> {
@@ -138,20 +144,20 @@ class OfflineFirstRunRepository(
         }
     }
 
-//    override suspend fun deleteAllRuns() {
-//        localRunDataSource.deleteAllRuns()
-//    }
-//
-//    override suspend fun logout(): EmptyResult<DataError.Network> {
-//        val result = client.get<Unit>(
-//            route = "/logout"
-//        ).asEmptyDataResult()
-//
-//        client.plugin(Auth).providers.filterIsInstance<BearerAuthProvider>()
-//            .firstOrNull()
-//            ?.clearToken()
-//
-//        return result
-//    }
+    override suspend fun deleteAllRuns() {
+        localRunDataSource.deleteAllRuns()
+    }
+
+    override suspend fun logout(): EmptyResult<DataError.Network> {
+        val result = client.get<Unit>(
+            route = "/logout"
+        ).asEmptyDataResult()
+
+        client.plugin(Auth).providers.filterIsInstance<BearerAuthProvider>()
+            .firstOrNull()
+            ?.clearToken()
+
+        return result
+    }
 
 }
