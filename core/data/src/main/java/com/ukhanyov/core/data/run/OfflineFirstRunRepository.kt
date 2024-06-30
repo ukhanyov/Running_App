@@ -16,7 +16,8 @@ class OfflineFirstRunRepository(
     private val remoteRunDataSource: RemoteRunDataSource,
     private val applicationScope: CoroutineScope,
     private val runPendingSyncDao: RunPendingSyncDao,
-    private val sessionStorage: SessionStorage
+    private val sessionStorage: SessionStorage,
+    private val syncRunScheduler: SyncRunScheduler,
 ) : RunRepository {
 
     override fun getRuns(): Flow<List<Run>> {
@@ -48,9 +49,16 @@ class OfflineFirstRunRepository(
 
         return when (remoteResult) {
             is Result.Error -> {
+                applicationScope.launch {
+                    syncRunScheduler.scheduleSync(
+                        type = SyncRunScheduler.SyncType.CreateRun(
+                            run = runWithId,
+                            mapPictureBytes = mapPicture
+                        )
+                    )
+                }.join()
                 Result.Success(Unit)
             }
-
             is Result.Success -> {
                 applicationScope.async {
                     localRunDataSource.upsertRun(remoteResult.data).asEmptyDataResult()
@@ -74,6 +82,14 @@ class OfflineFirstRunRepository(
         val remoteResult = applicationScope.async {
             remoteRunDataSource.deleteRun(id)
         }.await()
+
+        if (remoteResult is Result.Error) {
+            applicationScope.launch {
+                syncRunScheduler.scheduleSync(
+                    type = SyncRunScheduler.SyncType.DeleteRun(id)
+                )
+            }.join()
+        }
     }
 
     override suspend fun syncPendingRuns() {
@@ -121,4 +137,21 @@ class OfflineFirstRunRepository(
             deleteJobs.forEach { it.join() }
         }
     }
+
+//    override suspend fun deleteAllRuns() {
+//        localRunDataSource.deleteAllRuns()
+//    }
+//
+//    override suspend fun logout(): EmptyResult<DataError.Network> {
+//        val result = client.get<Unit>(
+//            route = "/logout"
+//        ).asEmptyDataResult()
+//
+//        client.plugin(Auth).providers.filterIsInstance<BearerAuthProvider>()
+//            .firstOrNull()
+//            ?.clearToken()
+//
+//        return result
+//    }
+
 }
