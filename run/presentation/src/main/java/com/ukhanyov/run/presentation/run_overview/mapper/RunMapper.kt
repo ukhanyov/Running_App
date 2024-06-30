@@ -2,7 +2,7 @@ package com.ukhanyov.run.presentation.run_overview.mapper
 
 import com.ukhanyov.core.domain.run.Run
 import com.ukhanyov.core.presentation.ui.*
-import com.ukhanyov.run.presentation.run_overview.RunUi
+import com.ukhanyov.run.presentation.run_overview.model.RunUi
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 

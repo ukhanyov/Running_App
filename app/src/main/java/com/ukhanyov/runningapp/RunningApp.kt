@@ -6,6 +6,7 @@ import com.ukhanyov.auth.presentation.di.authViewModelModule
 import com.ukhanyov.core.data.di.coreDataModule
 import com.ukhanyov.core.database.di.databaseModule
 import com.ukhanyov.run.location.di.locationModule
+import com.ukhanyov.run.network.di.networkModule
 import com.ukhanyov.run.presentation.di.runPresentationModule
 import com.ukhanyov.runningapp.di.appModule
 import kotlinx.coroutines.CoroutineScope
@@ -31,11 +32,12 @@ class RunningApp : Application() {
             modules(
                 authDataModule,
                 authViewModelModule,
-                runPresentationModule,
                 appModule,
                 coreDataModule,
+                runPresentationModule,
                 locationModule,
                 databaseModule,
+                networkModule
             )
         }
     }

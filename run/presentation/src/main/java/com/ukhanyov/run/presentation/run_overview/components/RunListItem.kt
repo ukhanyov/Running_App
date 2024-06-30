@@ -26,9 +26,9 @@ import com.ukhanyov.core.presentation.designsystem.CalendarIcon
 import com.ukhanyov.core.presentation.designsystem.RunOutlinedIcon
 import com.ukhanyov.core.presentation.designsystem.RunningAppTheme
 import com.ukhanyov.run.presentation.R
-import com.ukhanyov.run.presentation.run_overview.RunUi
 import com.ukhanyov.run.presentation.run_overview.mapper.toRunUi
 import com.ukhanyov.run.presentation.run_overview.model.RunDataUi
+import com.ukhanyov.run.presentation.run_overview.model.RunUi
 import java.time.ZonedDateTime
 import kotlin.math.max
 import kotlin.time.Duration.Companion.minutes

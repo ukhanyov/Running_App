@@ -1,4 +1,4 @@
-package com.ukhanyov.run.presentation.run_overview
+package com.ukhanyov.run.presentation.run_overview.model
 
 data class RunUi(
     val id: String,
