@@ -1,6 +1,8 @@
 package com.ukhanyov.runningapp
 
 import android.app.Application
+import android.content.Context
+import com.google.android.play.core.splitcompat.SplitCompat
 import com.ukhanyov.auth.data.di.authDataModule
 import com.ukhanyov.auth.presentation.di.authViewModelModule
 import com.ukhanyov.core.data.di.coreDataModule
@@ -46,4 +48,8 @@ class RunningApp : Application() {
         }
     }
 
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
+    }
 }
