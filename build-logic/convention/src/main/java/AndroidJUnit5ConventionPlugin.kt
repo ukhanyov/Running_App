@@ -1,9 +1,7 @@
 import com.ukhanyov.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.withType
 
 class AndroidJUnit5ConventionPlugin : Plugin<Project> {
 
@@ -22,6 +20,9 @@ class AndroidJUnit5ConventionPlugin : Plugin<Project> {
                 "androidTestImplementation"(libs.findLibrary("assertk").get())
                 "androidTestImplementation"(libs.findLibrary("coroutines.test").get())
                 "androidTestImplementation"(libs.findLibrary("turbine").get())
+                "androidTestImplementation"(libs.findBundle("ktor").get())
+                "androidTestImplementation"(libs.findLibrary("ktor.client.mock").get())
+                "androidTestImplementation"(project(":core:android-test"))
             }
         }
     }

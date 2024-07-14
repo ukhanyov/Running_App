@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.runningapp.android.application.compose)
     alias(libs.plugins.runningapp.jvm.ktor)
+    alias(libs.plugins.runningapp.android.junit5)
 }
 
 android {
