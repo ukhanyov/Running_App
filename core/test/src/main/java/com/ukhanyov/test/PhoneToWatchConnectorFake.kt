@@ -28,7 +28,7 @@ package com.ukhanyov.test
 //        get() = _messagingActions.asSharedFlow()
 //
 //    override suspend fun sendActionToWatch(action: MessagingAction): EmptyResult<MessagingError> {
-//        return if(sendError != null) {
+//        return if(sendError == null) {
 //            Result.Success(Unit)
 //        } else {
 //            Result.Error(sendError!!)
