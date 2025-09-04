@@ -160,6 +160,7 @@ runningapp-jvm-library = { id = "runningapp.jvm.library", version = "unspecified
 runningapp-jvm-ktor = { id = "runningapp.jvm.ktor", version = "unspecified" }
 runningapp-jvm-junit5 = { id = "runningapp.jvm.junit5", version = "unspecified" }
 runningapp-android-junit5 = { id = "runningapp.android.junit5", version = "unspecified" }
+runningapp-android-application-wear-compose = { id = "runningapp.android.application.wear.compose", version = "unspecified" }
 
 [bundles]
 compose = [
