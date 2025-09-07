@@ -5,7 +5,7 @@ import android.content.Context
 import com.google.android.play.core.splitcompat.SplitCompat
 import com.ukhanyov.auth.data.di.authDataModule
 import com.ukhanyov.auth.presentation.di.authViewModelModule
-import com.ukhanyov.core.connectivity.data.coreConnectivityDataModule
+import com.ukhanyov.core.connectivity.data.di.coreConnectivityDataModule
 import com.ukhanyov.core.data.di.coreDataModule
 import com.ukhanyov.core.database.di.databaseModule
 import com.ukhanyov.run.data.di.runDataModule

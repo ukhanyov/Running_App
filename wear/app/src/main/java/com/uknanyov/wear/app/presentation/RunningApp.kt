@@ -1,7 +1,7 @@
 package com.uknanyov.wear.app.presentation
 
 import android.app.Application
-import com.ukhanyov.core.connectivity.data.coreConnectivityDataModule
+import com.ukhanyov.core.connectivity.data.di.coreConnectivityDataModule
 import com.ukhanyov.wear.run.data.di.wearRunDataModule
 import com.ukhanyov.wear.run.presentation.di.wearRunPresentationModule
 import com.uknanyov.wear.app.presentation.di.appModule
