@@ -1,7 +1,12 @@
 package com.ukhanyov.run.presentation.run_overview.mapper
 
 import com.ukhanyov.core.domain.run.Run
-import com.ukhanyov.core.presentation.ui.*
+import com.ukhanyov.core.presentation.ui.formatted
+import com.ukhanyov.core.presentation.ui.toFormattedHeartRate
+import com.ukhanyov.core.presentation.ui.toFormattedKm
+import com.ukhanyov.core.presentation.ui.toFormattedKmh
+import com.ukhanyov.core.presentation.ui.toFormattedMeters
+import com.ukhanyov.core.presentation.ui.toFormattedPace
 import com.ukhanyov.run.presentation.run_overview.model.RunUi
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -24,6 +29,8 @@ fun Run.toRunUi(): RunUi {
         maxSpeed = maxSpeedKmh.toFormattedKmh(),
         pace = duration.toFormattedPace(distanceKm),
         totalElevation = totalElevationMeters.toFormattedMeters(),
-        mapPictureUrl = mapPictureUrl
+        mapPictureUrl = mapPictureUrl,
+        avgHeartRate = avgHeartRate.toFormattedHeartRate(),
+        maxHeartRate = maxHeartRate.toFormattedHeartRate()
     )
 }

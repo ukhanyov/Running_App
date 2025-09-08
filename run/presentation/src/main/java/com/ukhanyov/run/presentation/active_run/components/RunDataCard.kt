@@ -1,7 +1,14 @@
 package com.ukhanyov.run.presentation.active_run.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ukhanyov.core.presentation.designsystem.RunningAppTheme
 import com.ukhanyov.core.presentation.ui.formatted
+import com.ukhanyov.core.presentation.ui.toFormattedHeartRate
 import com.ukhanyov.core.presentation.ui.toFormattedKm
 import com.ukhanyov.core.presentation.ui.toFormattedPace
 import com.ukhanyov.run.domain.RunData
@@ -51,6 +59,12 @@ fun RunDataCard(
             RunDataItem(
                 title = stringResource(id = R.string.distance),
                 value = (runData.distanceMeters / 1000.0).toFormattedKm(),
+                modifier = Modifier
+                    .defaultMinSize(minWidth = 75.dp)
+            )
+            RunDataItem(
+                title = stringResource(id = R.string.heart_rate),
+                value = runData.heartRates.lastOrNull().toFormattedHeartRate(),
                 modifier = Modifier
                     .defaultMinSize(minWidth = 75.dp)
             )
@@ -98,7 +112,8 @@ private fun RunDataCardPreview() {
             elapsedTime = 10.minutes,
             runData = RunData(
                 distanceMeters = 3425,
-                pace = 3.minutes
+                pace = 3.minutes,
+                heartRates = listOf(150)
             )
         )
     }

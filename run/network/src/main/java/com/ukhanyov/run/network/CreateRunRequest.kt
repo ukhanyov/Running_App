@@ -1,7 +1,9 @@
 package com.ukhanyov.run.network
 
+import android.annotation.SuppressLint
 import kotlinx.serialization.Serializable
 
+@SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class CreateRunRequest(
     val durationMillis: Long,
@@ -12,5 +14,7 @@ data class CreateRunRequest(
     val avgSpeedKmh: Double,
     val maxSpeedKmh: Double,
     val totalElevationMeters: Int,
+    val avgHeartRate: Int?,
+    val maxHeartRate: Int?,
     val id: String
 )
