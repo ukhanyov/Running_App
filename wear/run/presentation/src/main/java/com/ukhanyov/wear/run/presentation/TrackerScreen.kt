@@ -48,6 +48,8 @@ import com.ukhanyov.core.presentation.ui.ObserveAsEvents
 import com.ukhanyov.core.presentation.ui.formatted
 import com.ukhanyov.core.presentation.ui.toFormattedHeartRate
 import com.ukhanyov.core.presentation.ui.toFormattedKm
+import com.ukhanyov.wear.run.presentation.ambient.AmbientObserver
+import com.ukhanyov.wear.run.presentation.ambient.ambientMode
 import com.ukhanyov.wear.run.presentation.components.RunDataCard
 import org.koin.androidx.compose.koinViewModel
 
@@ -125,11 +127,21 @@ private fun TrackerScreen(
         permissionLauncher.launch(permissions.toTypedArray())
     }
 
+    AmbientObserver(
+        onEnterAmbient = {
+            onAction(TrackerAction.OnEnterAmbientMode(it.burnInProtectionRequired))
+        },
+        onExitAmbient = {
+            onAction(TrackerAction.OnExitAmbientMode)
+        }
+    )
+
     if (state.isConnectedPhoneNearby) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.background)
+                .ambientMode(state.isAmbientMode, state.burnInProtectionRequired),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
