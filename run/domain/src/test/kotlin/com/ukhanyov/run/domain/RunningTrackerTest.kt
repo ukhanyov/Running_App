@@ -1,7 +1,5 @@
 package com.ukhanyov.run.domain
 
-//import com.ukhanyov.core.connectivity.domain.messaging.MessagingAction
-//import com.ukhanyov.test.PhoneToWatchConnectorFake
 import app.cash.turbine.test
 import assertk.assertThat
 import assertk.assertions.isEqualTo
@@ -9,6 +7,7 @@ import com.ukhanyov.core.domain.location.Location
 import com.ukhanyov.core.domain.location.LocationWithAltitude
 import com.ukhanyov.test.LocationObserverFake
 import com.ukhanyov.test.MainCoroutineExtension
+import com.ukhanyov.test.PhoneToWatchConnectorFake
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.test.TestDispatcher
@@ -27,7 +26,7 @@ class RunningTrackerTest {
 
     private lateinit var runningTracker: RunningTracker
     private lateinit var locationObserverFake: LocationObserverFake
-//    private lateinit var watchConnectorFake: PhoneToWatchConnectorFake
+    private lateinit var watchConnectorFake: PhoneToWatchConnectorFake
 
     private lateinit var testDispatcher: TestDispatcher
     private lateinit var testScope: CoroutineScope
@@ -35,7 +34,7 @@ class RunningTrackerTest {
     @BeforeEach
     fun setUp() {
         locationObserverFake = LocationObserverFake()
-//        watchConnectorFake = PhoneToWatchConnectorFake()
+        watchConnectorFake = PhoneToWatchConnectorFake()
 
         testDispatcher = mainCoroutineExtension.testDispatcher
         testScope = CoroutineScope(testDispatcher)
@@ -43,7 +42,7 @@ class RunningTrackerTest {
         runningTracker = RunningTracker(
             locationObserver = locationObserverFake,
             applicationScope = testScope,
-//            watchConnector = watchConnectorFake
+            watchConnector = watchConnectorFake
         )
     }
 

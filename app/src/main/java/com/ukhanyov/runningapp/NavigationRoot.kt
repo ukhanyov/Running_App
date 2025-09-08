@@ -11,8 +11,8 @@ import androidx.navigation.navDeepLink
 import com.ukhanyov.auth.presentation.intro.IntroScreenRoot
 import com.ukhanyov.auth.presentation.login.LoginScreenRoot
 import com.ukhanyov.auth.presentation.register.RegisterScreenRoot
+import com.ukhanyov.core.notification.ActiveRunService
 import com.ukhanyov.run.presentation.active_run.ActiveRunScreenRoot
-import com.ukhanyov.run.presentation.active_run.service.ActiveRunService
 import com.ukhanyov.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable

@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     implementation(projects.core.domain)
-//    implementation(projects.core.connectivity.domain)
+    implementation(projects.core.connectivity.domain)
     implementation(projects.run.domain)
 
     implementation(libs.kotlinx.coroutines.core)

@@ -25,15 +25,20 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ukhanyov.core.notification.ActiveRunService
 import com.ukhanyov.core.presentation.designsystem.RunningAppTheme
 import com.ukhanyov.core.presentation.designsystem.StartIcon
 import com.ukhanyov.core.presentation.designsystem.StopIcon
-import com.ukhanyov.core.presentation.designsystem.components.*
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppActionButton
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppDialog
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppFloatingActionButton
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppOutlinedActionButton
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppScaffold
+import com.ukhanyov.core.presentation.designsystem.components.RunningAppToolbar
 import com.ukhanyov.core.presentation.ui.ObserveAsEvents
 import com.ukhanyov.run.presentation.R
 import com.ukhanyov.run.presentation.active_run.components.RunDataCard
 import com.ukhanyov.run.presentation.active_run.maps.TrackerMap
-import com.ukhanyov.run.presentation.active_run.service.ActiveRunService
 import com.ukhanyov.run.presentation.util.hasLocationPermission
 import com.ukhanyov.run.presentation.util.hasNotificationPermission
 import com.ukhanyov.run.presentation.util.shouldShowLocationPermissionRationale
@@ -144,7 +149,7 @@ private fun ActiveRunScreen(
     }
 
     LaunchedEffect(key1 = state.shouldTrack) {
-        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive) {
+        if (context.hasLocationPermission() && state.shouldTrack && !ActiveRunService.isServiceActive.value) {
             onServiceToggle(true)
         }
     }
